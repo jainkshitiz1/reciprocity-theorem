@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import MeterGauge from './components/MeterGauge';
 import AlertDialog from './components/AlertDialog';
 import CircuitDiagram from './components/CircuitDiagram';
@@ -25,7 +25,7 @@ export default function App() {
   const [c1, setC1] = useState(1.95);
   const [v1, setV1] = useState(220);
   const [f1, setF1] = useState(50);
-  const [v2, setV2] = useState(110);
+  const [v2, setV2] = useState(220);
   const [f2, setF2] = useState(50);
   const [s1, setS1] = useState(1);
   const [s2, setS2] = useState(2);
@@ -56,6 +56,8 @@ export default function App() {
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
+  const case1ResultRef = useRef(null);
+  const case2ResultRef = useRef(null);
 
   const showAlertDialog = (message) => {
     setAlertMessage(message);
@@ -113,6 +115,11 @@ export default function App() {
       const magnitude = Math.sqrt(i1[0] * i1[0] + i1[1] * i1[1]);
       setA11(magnitude);
       setA1(magnitude);
+      case1ResultRef.current = {
+        voltage: v1,
+        current: magnitude,
+        ratio: v1 / magnitude,
+      };
 
       if (magnitude > 5 || isNaN(magnitude)) {
         setLed1Off(true);
@@ -149,6 +156,11 @@ export default function App() {
       const magnitude = Math.sqrt(i1[0] * i1[0] + i1[1] * i1[1]);
       setA22(magnitude);
       setA2(magnitude);
+      case2ResultRef.current = {
+        voltage: v2,
+        current: magnitude,
+        ratio: v2 / magnitude,
+      };
 
       if (magnitude > 5 || isNaN(magnitude)) {
         setLed2Off(true);
@@ -178,16 +190,28 @@ export default function App() {
   };
 
   const perform3 = () => {
-    if (cf1 === 1 && cf2 === 1) {
+    const case1Result = case1ResultRef.current;
+    const case2Result = case2ResultRef.current;
+
+    if (case1Result && case2Result) {
       const newCount = count + 1;
       const newObservations = [...observations];
       const obsIndex = count;
       if (obsIndex < 5) {
-        newObservations[obsIndex] = [v1, parseFloat(a11.toFixed(3)), parseFloat(r11.toFixed(2)), v2, parseFloat(a22.toFixed(3)), parseFloat(r22.toFixed(2))];
+        newObservations[obsIndex] = [
+          case1Result.voltage,
+          parseFloat(case1Result.current.toFixed(3)),
+          parseFloat(case1Result.ratio.toFixed(2)),
+          case2Result.voltage,
+          parseFloat(case2Result.current.toFixed(3)),
+          parseFloat(case2Result.ratio.toFixed(2))
+        ];
       }
 
       setCount(newCount);
       setObservations(newObservations);
+      case1ResultRef.current = null;
+      case2ResultRef.current = null;
       setCf1(0);
       setCf2(0);
       setA1(0);
@@ -502,10 +526,10 @@ export default function App() {
               <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>Obs.</th>
               <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>V<sub>a-a</sub> (V)</th>
               <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>A<sub>11</sub> (A)</th>
-              <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>R<sub>11</sub> (Ω)</th>
+              <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>Ratio (V<sub>a-a</sub>/I<sub>b-b</sub>)</th>
               <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>V<sub>c-c</sub> (V)</th>
               <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>A<sub>22</sub> (A)</th>
-              <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>R<sub>22</sub> (Ω)</th>
+              <th style={{ padding: '10px', border: '1px solid #999', fontWeight: 'bold' }}>Ratio (V<sub>c-c</sub>/I<sub>d-d</sub>)</th>
             </tr>
           </thead>
           <tbody>

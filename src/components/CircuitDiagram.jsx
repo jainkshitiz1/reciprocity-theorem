@@ -14,85 +14,108 @@ export default function CircuitDiagram(props) {
   } = props;
 
   const overlayStyle = { position: 'absolute', pointerEvents: 'auto' };
+  const baseInput = {
+    width: '56px',
+    padding: '5px 6px',
+    borderRadius: 8,
+    border: '1px solid #ffffff',
+    backgroundColor: '#ffffff',
+    textAlign: 'center',
+    boxSizing: 'border-box',
+    fontSize: 13,
+    boxShadow: '0 4px 10px rgba(12,24,48,0.06)'
+  };
+  const baseSelect = {
+    width: '150px',
+    padding: '6px 10px',
+    borderRadius: 9,
+    backgroundColor: '#dff0dc',
+    border: '1px solid #b6d7b0',
+    color: '#0b3b16',
+    fontWeight: 800,
+    boxSizing: 'border-box',
+    fontSize: 14,
+    boxShadow: '0 5px 12px rgba(12,24,48,0.06)'
+  };
 
   return (
     <div style={{ position: 'relative', width: '100%', borderRadius: 10, overflow: 'hidden', backgroundColor: '#d6e6f8' }}>
       <img src="/reciprocity.jpg" alt="reciprocity diagram" style={{ width: '100%', height: 'auto', maxHeight: '520px', objectFit: 'contain', display: 'block' }} />
 
       {/* Va-a input */}
-      <div style={{ ...overlayStyle, left: '6%', top: '38%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '9%', top: '38%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={v1} onChange={(e) => setV1(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4, border: '2px solid #fff' }} />
+          style={baseInput} />
       </div>
 
       {/* Va freq */}
-      <div style={{ ...overlayStyle, left: '6%', top: '47%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '9%', top: '47%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={f1} onChange={(e) => setF1(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4, border: '2px solid #fff' }} />
+          style={baseInput} />
       </div>
 
       {/* S1 dropdown overlay */}
-      <div style={{ ...overlayStyle, left: '15%', top: '28%', width: 120 }}>
+      <div style={{ ...overlayStyle, left: '20%', top: '28%', width: 150, transform: 'translate(-50%, -50%)' }}>
         <select value={s1} onChange={(e) => setS1(parseInt(e.target.value))} disabled={switchEnabled}
-          style={{ width: '140px', padding: '8px', borderRadius: 4, backgroundColor: '#f9f9f9', border: '2px solid #333', color: '#333', fontWeight: '700', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+          style={baseSelect}>
           <option value={1}>Power</option>
           <option value={2}>Short</option>
         </select>
       </div>
 
       {/* R1 overlay */}
-      <div style={{ ...overlayStyle, left: '34%', top: '12%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '40%', top: '12%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={r1} onChange={(e) => setR1(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* R2 overlay */}
-      <div style={{ ...overlayStyle, left: '51%', top: '12%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '52%', top: '12%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={r2} onChange={(e) => setR2(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* R3 overlay */}
-      <div style={{ ...overlayStyle, left: '76%', top: '12%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '72%', top: '12%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={r3} onChange={(e) => setR3(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* R4 overlay (right) */}
-      <div style={{ ...overlayStyle, left: '78%', top: '24%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '80%', top: '24%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={r4} onChange={(e) => setR4(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* L1 overlay */}
-      <div style={{ ...overlayStyle, left: '56%', top: '62%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '56%', top: '62%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={l1} onChange={(e) => setL1(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* C1 overlay */}
-      <div style={{ ...overlayStyle, left: '60%', top: '20%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '62%', top: '20%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={c1} onChange={(e) => setC1(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* S2 dropdown */}
-      <div style={{ ...overlayStyle, left: '68%', top: '28%', width: 120 }}>
+      <div style={{ ...overlayStyle, left: '72%', top: '28%', width: 150, transform: 'translate(-50%, -50%)' }}>
         <select value={s2} onChange={(e) => setS2(parseInt(e.target.value))} disabled={switchEnabled}
-          style={{ width: '140px', padding: '8px', borderRadius: 4, backgroundColor: '#f9f9f9', border: '2px solid #333', color: '#333', fontWeight: '700', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+          style={baseSelect}>
           <option value={1}>Power</option>
           <option value={2}>Short</option>
         </select>
       </div>
 
       {/* Vc-c and freq overlay */}
-      <div style={{ ...overlayStyle, left: '88%', top: '36%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '88%', top: '36%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={v2} onChange={(e) => setV2(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
-      <div style={{ ...overlayStyle, left: '88%', top: '46%', width: 60 }}>
+      <div style={{ ...overlayStyle, left: '88%', top: '46%', width: 56, transform: 'translate(-50%, -50%)' }}>
         <input type="number" value={f2} onChange={(e) => setF2(parseFloat(e.target.value) || 0)} disabled={switchEnabled}
-          style={{ width: '60px', padding: '4px', borderRadius: 4 }} />
+          style={baseInput} />
       </div>
 
       {/* Ammeter A2 (left) gauge overlay */}
